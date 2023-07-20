@@ -1,13 +1,13 @@
-package com.an.notificationservice;
+package com.anle.commonservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NotificationserviceApplication {
+public class CommonserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NotificationserviceApplication.class, args);
+		SpringApplication.run(CommonserviceApplication.class, args);
 	}
 
 }

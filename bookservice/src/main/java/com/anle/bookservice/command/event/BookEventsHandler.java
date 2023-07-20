@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.anle.bookservice.command.data.Book;
 import com.anle.bookservice.command.data.BookRepository;
+import com.anle.commonservice.events.BookRollBackStatusEvent;
+import com.anle.commonservice.events.BookUpdateStatusEvent;
 
 @Component
 public class BookEventsHandler {
@@ -36,4 +38,18 @@ public class BookEventsHandler {
 	public void on(BookDeletedEvent event) {
 		bookRepository.deleteById(event.getBookId());
 	}
+
+	@EventHandler
+	public void on(BookUpdateStatusEvent event) {
+		Book book = bookRepository.getById(event.getBookId());
+		book.setIsReady(event.getIsReady());
+		bookRepository.save(book);
+	}
+
+	public void on(BookRollBackStatusEvent event) {
+		Book book = bookRepository.getById(event.getBookId());
+		book.setIsReady(event.getIsReady());
+		bookRepository.save(book);
+	}
+
 }

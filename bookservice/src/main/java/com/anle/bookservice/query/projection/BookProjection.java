@@ -14,6 +14,9 @@ import com.anle.bookservice.command.data.BookRepository;
 import com.anle.bookservice.query.model.BookResponseModel;
 import com.anle.bookservice.query.queries.GetAllBooksQuery;
 import com.anle.bookservice.query.queries.GetBooksQuery;
+import com.anle.commonservice.model.BookResponseCommonModel;
+import com.anle.commonservice.query.GetDetailsBookQuery;
+import com.anle.commonservice.query.GetListBookQuery;
 
 @Component
 public class BookProjection {
@@ -42,5 +45,26 @@ public class BookProjection {
 		});
 		return listBook;
 
+	}
+
+	@QueryHandler
+	public BookResponseCommonModel handle(GetDetailsBookQuery getDetailsBookQuery) {
+		BookResponseCommonModel model = new BookResponseCommonModel();
+		Book book = bookRepository.getById(getDetailsBookQuery.getBookId());
+		BeanUtils.copyProperties(book, model);
+
+		return model;
+	}
+
+	@QueryHandler
+	public List<BookResponseCommonModel> handle(GetListBookQuery getListBookQuery) {
+		List<Book> listEntity = bookRepository.findAll();
+		List<BookResponseCommonModel> listbook = new ArrayList<>();
+		listEntity.forEach(s -> {
+			BookResponseCommonModel model = new BookResponseCommonModel();
+			BeanUtils.copyProperties(s, model);
+			listbook.add(model);
+		});
+		return listbook;
 	}
 }

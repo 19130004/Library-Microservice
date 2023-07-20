@@ -61,6 +61,11 @@
 			<artifactId>guava</artifactId>
 			<version>32.1.1-jre</version>
 		</dependency>
+			<dependency>
+			<groupId>com.anle</groupId>
+			<artifactId>commonservice</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
